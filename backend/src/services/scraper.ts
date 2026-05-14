@@ -103,11 +103,16 @@ const cleanPrice = (priceStr: string) => {
   // Check if it's free
   let hasFreeTrial = str.includes('free') || str.includes('trial') || str.includes('0');
   
-  // Use Regex to find the currency symbol and the digits
-  const match = priceStr.match(/(\$|€|£)?\s*(\d+([.,]\d{1,2})?)/);
+  // Use a more flexible Regex to find numbers even after words like "Starting at"
+  // It looks for a currency symbol ($€£) followed by a number
+  const match = priceStr.match(/(\$|€|£)?\s*(\d+([.,]\d{1,2})?)/) || priceStr.match(/(\d+([.,]\d{1,2})?)\s*(\$|€|£)?/);
+  
   if (match) {
-    const currency = match[1] === '€' ? 'EUR' : match[1] === '£' ? 'GBP' : 'USD';
-    const priceText = match[2] || '0';
+    const currency = match[1] === '€' || match[3] === '€' ? 'EUR' : 
+                     match[1] === '£' || match[3] === '£' ? 'GBP' : 'USD';
+    
+    // We try to find the number in either match group 2 or 1 depending on where the currency symbol was
+    const priceText = match[2] || match[1] || '0';
     const price = parseFloat(priceText.replace(',', ''));
     return { price, currency, hasFreeTrial: price === 0 || hasFreeTrial };
   }

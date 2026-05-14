@@ -71,9 +71,14 @@ const PricingTable: React.FC<PricingTableProps> = ({ data }) => {
                   <X className="h-5 w-5 text-red-500" />
                 )}
               </td>
-              <td className="px-3 py-4 text-sm text-gray-500 max-w-xs truncate" title={plan.features.join(', ')}>
-                {plan.features.slice(0, 3).join(', ')}
-                {plan.features.length > 3 ? '...' : ''}
+              <td className="px-3 py-4 text-sm text-gray-500">
+                <ul className="list-disc list-inside space-y-1">
+                  {plan.features.map((feature, index) => (
+                    <li key={index} className="leading-relaxed">
+                      {feature}
+                    </li>
+                  ))}
+                </ul>
               </td>
             </tr>
           ))}
