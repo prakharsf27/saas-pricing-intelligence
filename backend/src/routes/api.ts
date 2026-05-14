@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import SaaSData from '../models/SaaSData';
+import { runScraper } from '../services/scraper';
 
 const router = Router();
 
@@ -54,6 +55,16 @@ router.get('/analytics', async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({ error: 'Server error generating analytics' });
+  }
+});
+
+// Trigger a manual scrape via URL
+router.get('/scrape-now', async (req, res) => {
+  try {
+    runScraper(); // Run in background
+    res.json({ message: 'Scraper started! Refresh the dashboard in a few seconds.' });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to start scraper' });
   }
 });
 
