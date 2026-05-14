@@ -1,5 +1,5 @@
 import React from 'react';
-import { Building2, Layers, DollarSign, TrendingUp, CheckCircle } from 'lucide-react';
+import { Building2, Layers, DollarSign, CheckCircle } from 'lucide-react';
 
 interface AnalyticsCardsProps {
   analytics: {
