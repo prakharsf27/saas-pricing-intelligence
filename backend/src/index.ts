@@ -21,6 +21,7 @@ app.use(cors({
 app.use(express.json());
 
 // Routes
+app.get('/', (req, res) => res.send('✅ Backend is LIVE!'));
 app.use('/api', apiRoutes);
 
 // 1. DATABASE CONNECTION
