@@ -1,86 +1,76 @@
-# SaaS Pricing Intelligence Platform
+# SaaS Pricing Intelligence Platform 📊
 
-## Business Problem
-SaaS companies frequently update their pricing, introduce new tiers, and alter free trial offerings. For competitors and businesses using these services, manually tracking these changes across the market is inefficient and error-prone. This leads to delayed responses to market shifts or overpaying for services.
+A full-stack automated platform designed to help businesses monitor competitor pricing strategies, feature offerings, and market trends in real-time.
 
-**Solution:** The SaaS Pricing Intelligence Platform automates the collection, cleaning, and analysis of publicly available pricing data from competitor websites. It provides a real-time dashboard with actionable insights, feature comparisons, and historical tracking to help businesses make informed strategic decisions.
+---
 
-## Architecture
+## 🎯 The Business Problem
+In the fast-paced B2B SaaS market, companies frequently change their pricing tiers, free trial policies, and feature bundles. 
+**The Manual Struggle:** Manually tracking these changes across 10+ competitors is inefficient, error-prone, and slow. Businesses often miss market shifts or lose competitive edge because they aren't aware of a competitor's new "Pro" tier or aggressive discount.
 
-*   **Frontend**: React + TypeScript + Vite + Tailwind CSS v4 + Lucide React
-*   **Backend**: Node.js + Express.js + TypeScript
-*   **Database**: MongoDB (Mongoose ORM)
-*   **Scraping**: Axios + Cheerio
-*   **Automation**: node-cron (Scheduled jobs)
+**The Solution:** This platform automates the entire "Competitive Intelligence" lifecycle:
+1.  **Automated Collection**: Scrapers fetch live data from public pricing pages.
+2.  **Standardization**: Messy web data is cleaned, currencies are normalized, and features are structured.
+3.  **Actionable Insights**: A dashboard provides AI-powered summaries, average market pricing, and feature comparisons.
 
-## Setup Instructions
+---
 
-### Prerequisites
-*   Node.js (v18 or higher)
-*   MongoDB (Local instance or MongoDB Atlas)
+## 🏗 Technical Architecture
+*   **Frontend**: React.js with Tailwind CSS v4 (Modern, Responsive Dashboard).
+*   **Backend**: Node.js & Express (RESTful API & Data Pipeline).
+*   **Database**: MongoDB Atlas (Scalable NoSQL storage).
+*   **Automation**: `node-cron` for scheduled daily scraping jobs.
+*   **Scraping**: `Axios` + `Cheerio` (Lightweight and resilient scraping engine).
 
-### 1. Clone the repository and navigate
-```bash
-# This codebase contains both frontend and backend
-cd "Coherent assignment"
-```
+---
 
-### 2. Backend Setup
+## 🚀 Local Setup Instructions
+
+### 1. Prerequisites
+*   Node.js (v18+)
+*   MongoDB (Local instance or Atlas URI)
+
+### 2. Backend Installation
 ```bash
 cd backend
 npm install
+npm run seed   # Populates your DB with initial data
+npm run dev    # Starts server on http://localhost:5001
 ```
-*   Create a `.env` file in the `backend` directory (Optional if using local MongoDB and port 5000):
-```env
-PORT=5000
-MONGO_URI=mongodb://localhost:27017/saas-pricing-intel
-```
-*   Seed the database with initial sample data:
-```bash
-npm run seed
-```
-*   Start the development server:
-```bash
-npm run dev
-```
-*(The backend will run on http://localhost:5000)*
 
-### 3. Frontend Setup
+### 3. Frontend Installation
 ```bash
 cd frontend
 npm install
+npm run dev    # Starts dashboard on http://localhost:5173
 ```
-*   Create a `.env` file in the `frontend` directory:
-```env
-VITE_API_URL=http://localhost:5000/api
-```
-*   Start the development server:
-```bash
-npm run dev
-```
-*(The frontend will run on http://localhost:5173)*
 
-## Features
-*   **Automated Scraper**: A resilient scraper built with Axios and Cheerio that extracts pricing plans, handles pagination/sections, and normalizes messy DOM structures into structured JSON.
-*   **Data Pipeline**: The `scraper.ts` service normalizes currencies, converts billing cycles, detects free trials implicitly, and handles missing fields gracefully via defensive fallbacks.
-*   **Scheduled Cron Jobs**: Configured via `node-cron` to automatically update the dataset every midnight (`0 0 * * *`).
-*   **AI/Analytics Insights**: Analyzes the dataset to provide summaries (average prices, most expensive plans, free trial prevalence).
-*   **Dynamic Dashboard**: A fully responsive dashboard that lets users filter by billing cycles, search for specific companies, and compare key metrics.
+---
 
-## Deployment Process
+## 🔑 Environment Variables
 
-### Backend (Render / Railway)
-1.  Push your code to a GitHub repository.
-2.  In Render, create a new "Web Service".
-3.  Set the Root Directory to `backend`.
-4.  Build Command: `npm install && npm run build`
-5.  Start Command: `npm start`
-6.  Environment Variables: Set `MONGO_URI` to your MongoDB Atlas connection string. Set `PORT` to `10000`.
+### Backend (`backend/.env`)
+| Variable | Description | Example |
+| :--- | :--- | :--- |
+| `MONGO_URI` | Your MongoDB connection string. | `mongodb+srv://...` |
+| `PORT` | The port for the API server. | `5001` |
 
-### Frontend (Vercel)
-1.  In Vercel, import your GitHub repository.
-2.  Set the Framework Preset to Vite.
-3.  Set the Root Directory to `frontend`.
-4.  Build Command: `npm run build`
-5.  Output Directory: `dist`
-6.  Environment Variables: Set `VITE_API_URL` to the URL of your deployed backend (e.g., `https://your-backend-app.onrender.com/api`).
+### Frontend (`frontend/.env`)
+| Variable | Description | Example |
+| :--- | :--- | :--- |
+| `VITE_API_URL` | The URL of the running backend API. | `http://localhost:5001/api` |
+
+---
+
+## 🛠 Features for the Assignment
+*   **Resilient Scraper**: Handles missing data gracefully and uses defensive fallbacks if a website structure changes.
+*   **Manual Trigger**: Includes a special `/api/scrape-now` endpoint to force an update instantly.
+*   **Data Normalization**: Cleans raw strings like "$12.99/mo" into structured numeric data for analytics.
+*   **AI Analytics**: Computes market-wide averages and identifies the cheapest/most expensive competitor tiers.
+
+---
+
+## 🌐 Deployment
+*   **Frontend**: Deployed on **Vercel**.
+*   **Backend**: Deployed on **Render**.
+*   **Database**: Hosted on **MongoDB Atlas**.
