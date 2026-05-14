@@ -51,6 +51,24 @@ const seedData = [
     billingCycle: 'monthly',
     features: ['750 tasks/mo', 'Multi-step Zaps', '3 Premium Apps', 'Filters and Formatters'],
     hasFreeTrial: true,
+  },
+  {
+    companyName: 'Linear',
+    planName: 'Standard (Annual)',
+    price: 96,
+    currency: 'USD',
+    billingCycle: 'yearly',
+    features: ['Unlimited issues', 'Unlimited file uploads', 'Advanced roadmaps'],
+    hasFreeTrial: false,
+  },
+  {
+    companyName: 'Notion',
+    planName: 'Plus (Annual)',
+    price: 96,
+    currency: 'USD',
+    billingCycle: 'yearly',
+    features: ['Unlimited blocks', '30-day page history', '100 guests'],
+    hasFreeTrial: false,
   }
 ];
 

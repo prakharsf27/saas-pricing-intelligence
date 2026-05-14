@@ -123,7 +123,10 @@ const cleanPrice = (priceStr: string) => {
 const cleanBillingCycle = (text: string) => {
   if (!text) return 'monthly';
   const lower = text.toLowerCase();
-  if (lower.includes('year') || lower.includes('annually')) return 'yearly';
+  // Improved detection for various ways sites list yearly billing
+  if (lower.includes('year') || lower.includes('annually') || lower.includes('/yr') || lower.includes('billed once')) {
+    return 'yearly';
+  }
   return 'monthly';
 };
 
